@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Getting Started</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="lib/css/bootstrap.css" type="text/css"/>
+		<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+		<script type="text/javascript" src="lib/js/json2.js"> </script>  
+		<script type="text/javascript" src="lib/js/jquery/jquery.min.js"> </script>  
+ 		<script type="text/javascript" src="lib/js/history.min.js"></script>  
+ 		<script type="text/javascript" src="lib/core.js"></script>  
+	</head>
+	<body>
+		<div class="outer shadow round">
+			<div class="main container">
+<!-- generated via pages.py -->
+<div class="content active" id="start">
+<h2>Getting started</h2>
+
+<p><br/></p>
+
+<h4>Initializing a new project</h4>
+
+<p>The chaiproject will be a submodule in your app in the folder "lib".</p>
+
+<ol>
+<li>Add chaiproject as a submodule in your project repository: <br/>
+<code>git submodule add git@github.com:rmehta/chaiproject lib</code></li>
+<li>Configure lib/py/conf.py (see conf_template.py)</li>
+<li>Run the init script: <br/>
+<code>python lib/py/init.py admin admin123</code></li>
+</ol>
+
+<h4>Apache HTTP conf settings</h4>
+
+<p>Add the following settings to your directory or virtual host in httpd.conf file</p>
+
+<pre class="prettyprint">
+&lt;Directory "path/to/www"&gt;
+  # allow cgi execution
+  Options Indexes FollowSymLinks MultiViews ExecCGI
+
+  # execute python files
+  AddHandler cgi-script .cgi .py
+&lt;/Directory&gt;
+</pre>
+
+<h4>Directory Structure</h4>
+
+<p>The following files will be created</p>
+
+<ol>
+<li>index_template.html: From this all static html files are generated including index.html</li>
+<li>css/style.css: Basic style elements (extension from bootstrap.css)</li>
+<li>index.html: Sample index.html that you will change</li>
+</ol>
+
+<h4>Admin User</h4>
+
+<p>The admin user &amp; password is what you have specified in your init.py file</p>
+
+<h4>Testing</h4>
+
+<p>To see if your app is up, go to you browser and try to login.</p>
+
+<p><a href="#objstore" class="btn primary">Next: Learn how to store objects</a></p>
+</div>
+
+			</div>
+		</div>
+		<div class="footer">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>admin</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="lib/css/bootstrap.css" type="text/css"/>
+		<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+		<script type="text/javascript" src="lib/js/json2.js"> </script>  
+		<script type="text/javascript" src="lib/js/jquery/jquery.min.js"> </script>  
+ 		<script type="text/javascript" src="lib/js/history.min.js"></script>  
+ 		<script type="text/javascript" src="lib/core.js"></script>  
+	</head>
+	<body>
+		<div class="outer shadow round">
+			<div class="main container">
+<!-- generated via pages.py -->
+<div class="content active" id="User Interface">
+<h2>User Interface</h2>
+
+<ul>
+<li>The chaiproject UI is based on mainly JQuery and Twitter Bootstrap. All the other features are called "plugins" that are loaded on demand.</li>
+<li>All plugins are accessed via a hash (fragment). For example signin can be called by adding <code>#signin</code> to the addressbar</li>
+</ul>
+
+<h4>Standard Interface Features:</h4>
+
+<ol>
+<li>Dynamic Pages: Pages can be created on the fly and loaded via ajax. Current page has content and active css class on it.</li>
+<li>Toolbar: Standard Twitter Bootstrap Toolbar with buttons for login, admin and user settings</li>
+<li>Admin Pages: List of pages, users, files. Adding and deleting</li>
+<li>File Upload: Dialog (modal) for uploading a file</li>
+<li>Page Editing: Click on Admin->Edit on any page</li>
+</ol>
+
+<h4>Types of Pages</h4>
+
+<p>Pages can be of 2 types</p>
+
+<ol>
+<li>Virtual Pages (stored primarily in the db, also stored as files for search bots)</li>
+<li>Plugins (stored only as files)</li>
+</ol>
+
+<h4>Adding new Pages</h4>
+
+<ol>
+<li><p>To add a new Virtual Page, just go to Admin-> Pages and "Add". You can either edit the HTML or markdown. (Markdown to html, courtesy of showdown.js)</p></li>
+<li><p>To add a new plugin, just make a new html file preferably in the "plugins" folder of your root directory and register the plugin in your index_template.html by add the following js line.</p></li>
+</ol>
+
+<pre class="prettyprint">
+$.extend($._plugins, {"myplugin": {"path":"plugins"}});
+</pre>
+
+<p>This will ensure that this file will be loaded when #myplugin is called</p>
+
+<p>Page Events</p>
+</div>
+
+			</div>
+		</div>
+		<div class="footer">
+		</div>
+	</body>
+</html>

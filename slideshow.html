@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Slideshow</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="lib/css/bootstrap.css" type="text/css"/>
+		<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+		<script type="text/javascript" src="lib/js/json2.js"> </script>  
+		<script type="text/javascript" src="lib/js/jquery/jquery.min.js"> </script>  
+ 		<script type="text/javascript" src="lib/js/history.min.js"></script>  
+ 		<script type="text/javascript" src="lib/core.js"></script>  
+	</head>
+	<body>
+		<div class="outer shadow round">
+			<div class="main container">
+<!-- generated via pages.py -->
+<div class="content active" id="slideshow">
+<div class="slides">
+  <div class="slides_container">
+    <div class="slide">
+      <img src="files/Image0071.jpg">
+    </div>
+    <div class="slide">
+      <img src="files/Image0072.jpg">
+    </div>
+    <div class="slide">
+      <img src="files/Image0073.jpg">
+    </div>
+  </div>
+  <div class="prev"></div>
+  <div class="next"></div>
+</div>
+
+<style>
+#index .slides {
+  width: 720px;
+  margin: 23px auto;
+  position: relative;
+}
+
+/* slides */
+
+.slides_container {
+  height: 540px;
+  margin: auto;
+  display: none;
+}
+.slides_container div.slide img {
+  height: 540px;
+}
+
+/* prev next */
+.slides .prev, .slides .next {
+  position: absolute;
+  bottom: 18px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.slides .prev {
+  left: 0px;
+  background: url('lib/img/icon_leftarrow.gif');
+}
+.slides .prev:hover {
+  background-position-y: -22px;
+}
+
+.slides .next {
+  right: 0px;
+  background: url('lib/img/icon_rightarrow.gif');
+}
+.slides .next:hover {
+  background-position-y: -22px;
+}
+
+/* pagination */
+
+.pagination {
+  margin: 17px auto 0;
+  width: 100px;
+}
+
+.pagination li {
+  float:left;
+  margin:0 7px;
+  list-style:none;
+}
+
+.pagination li a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 0px;
+  background-color: #888;
+  float: left;
+  overflow: hidden;
+  border-right: 0px !important;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.pagination li.current a {
+  background-color: #aaa;
+}
+
+</style>
+<script>
+$('#index').bind('_show', function() {
+  if($.homeSlidesLoaded) return;
+  $.homeSlidesLoaded = true;
+
+  $.require('lib/js/jquery/slides.js');
+  $('.slides').slides({
+    play: 5000,
+    pause: 2500,
+    hoverPause: true
+  });
+});
+</script>
+</div>
+
+			</div>
+		</div>
+		<div class="footer">
+		</div>
+	</body>
+</html>

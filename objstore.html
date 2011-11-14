@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Object Store</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="lib/css/bootstrap.css" type="text/css"/>
+		<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+		<script type="text/javascript" src="lib/js/json2.js"> </script>  
+		<script type="text/javascript" src="lib/js/jquery/jquery.min.js"> </script>  
+ 		<script type="text/javascript" src="lib/js/history.min.js"></script>  
+ 		<script type="text/javascript" src="lib/core.js"></script>  
+	</head>
+	<body>
+		<div class="outer shadow round">
+			<div class="main container">
+<!-- generated via pages.py -->
+<div class="content active" id="objstore">
+<div class="page-header"><h1>Object Store</h1></div>
+
+<p>Objects are JSON-like dictionary of literals, lists and dicts. </p>
+
+<p>For example:</p>
+
+<p><code>{"type":"user", "name":"test", "userrole":["Admin", "Manager"]}</code></p>
+
+<p>Server-side objects are saved in a relational db (sqlite) and can be added and removed using a RESTful API.</p>
+
+<p>Key Concepts:</p>
+
+<ol>
+<li>Objects are identified by their "type" and are stored in a table named on the "type"</li>
+<li>Objects have primary key "name", though it is not mandatory. It is required for important objects that you want to call using "get".</li>
+<li>Objects can be vector objects i.e. their properties can be non-literal lists or dictionaries. In this case, objstore will create "child" tables for these properties. The records in the child table will be linked to the parent by "parent" and "parent_type" properties.</li>
+</ol>
+
+<p><section></p>
+
+<div class="page-header"><h2>objstore.py API</h2></div>
+
+<blockquote>
+  <p>objstore exposes three basic methods <code>get</code>, <code>post</code> and <code>delete</code>. 
+  These can be called locally or via http_request.</p>
+</blockquote>
+
+<p><br/></p>
+
+<h3>1. Simple "get" and "post"</h3>
+
+<p>The library <code>py/objstore.py</code> provides the api to add and remove objects. It exposes <code>get</code> and <code>put</code> methods.</p>
+
+<pre class="prettyprint">
+>>> objstore.post(type="newtype", name="01", info="someinfo")
+{'message': 'ok'}
+>>> objstore.db.conn.commit()
+</pre>
+
+<p>If the table <code>newtype</code> is not present, objstore creates the table:</p>
+
+<pre class="prettyprint">
+sqlite> pragma table_info(newtype);
+0|name||0||1
+1|info||0||0
+2|_updated||0||0
+sqlite> 
+</pre>
+
+<p>Note that a column "_updated" is added automatically. This is for the timestamp of the object.</p>
+
+<p>And the record is added to the table</p>
+
+<pre class="prettyprint">
+sqlite> select * from newtype;
+01|someinfo|2011-11-14 09:52:16.534698
+</pre>
+
+<p>Now trying to get the record via python:</p>
+
+<pre class="prettyprint">
+>>> objstore.get(type="newtype", name="01")
+{'info': u'someinfo', '_updated': u'2011-11-14 09:52:16.534698', 'type': 'newtype', 'name': u'01'}
+</pre>
+
+<p><br/></p>
+
+<h3>2. Adding Columns on the Fly</h3>
+
+<p>Objstore allows you to add more properties to the object on the fly and treat it almost as a NoSQL store.</p>
+
+<p>For example, lets us add a new column "newinfo" to our record:</p>
+
+<pre class="prettyprint">
+>>> objstore.post(type="newtype", name="01", info="someinfo", newinfo="its new!")
+{'message': 'ok'}
+</pre>
+
+<p>Now back to sqlite (remember to reload the file, since it has been changed):</p>
+
+<pre class="prettyprint">
+sqlite> pragma table_info(newtype);
+0|name||0||1
+1|info||0||0
+2|_updated||0||0
+3|newinfo||0||0
+
+sqlite> select * from newtype;
+01|someinfo|2011-11-14 10:21:04.721371|its new!
+</pre>
+
+<p><br/></p>
+
+<h3>3. Working with Vectors</h3>
+
+<p>There are 3 type of vector properties</p>
+
+<ol>
+<li>Simple lists: <code>['a','b','c']</code></li>
+<li>Objects: <code>{"line1":"200, some street", "city":"Mumbai", "country":"India"}</code></li>
+<li>List of objects: <code>[{"comment":"hello", "by":"user"}, {"comment":"world", "by":"user1"}]</code></li>
+</ol>
+
+<p>The vector property name is very important as it designates the "type" of the property, for example:</p>
+
+<pre class="prettyprint">
+{"type":"person", "name":"abc", "address":{"line1":"200, some street", "city":"Mumbai", "country":"India"}}
+</pre>
+
+<p>The address object, in this case is saved in a separate table called <code>address</code>.</p>
+
+<p></section>
+<section></p>
+
+<div class="page-header"><h2>Calling via HTTP</h2></div>
+
+<p>The same methods "GET", "POST" and "DELETE" can be called via http requests. For example:</p>
+
+<pre class="prettyprint">
+>>> import requests
+>>> r = requests.get("http://localhost/lib/py/objstore.py", params = {"name":"01", "type":"newtype"})
+>>> r.content
+'{"info": "someinfo", "_updated": "2011-11-14 10:22:11.218603", "type": "newtype", "name": "01", "newinfo": "its new!"}\n'
+</pre>
+
+<h3>Passing objects as json</h3>
+
+<p>Objects can also be passed as json. This is specially useful for vector objects. To pass an object as json, just convert it to a json string and pass it under the <code>json</code></p>
+
+<pre class="prettyprint">
+>>> import requests, json
+>>> r = requests.post("http://localhost/lib/py/objstore.py", params = {"json": json.dumps({"name":"01", "type":"newtype", "info":"hello"})})
+</pre>
+
+<p>Read more about how to add events and permissions to the objstore in the models section
+</section></p>
+<script>
+$('#objstore').bind('_show', function() {
+  $.require('lib/js/google-code-prettify/prettify.css');
+  $.require('lib/js/google-code-prettify/prettify.js');
+  prettyPrint();
+})
+</script>
+</div>
+
+			</div>
+		</div>
+		<div class="footer">
+		</div>
+	</body>
+</html>

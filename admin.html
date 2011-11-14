@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Administrator Interface</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="lib/css/bootstrap.css" type="text/css"/>
+		<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+		<script type="text/javascript" src="lib/js/json2.js"> </script>  
+		<script type="text/javascript" src="lib/js/jquery/jquery.min.js"> </script>  
+ 		<script type="text/javascript" src="lib/js/history.min.js"></script>  
+ 		<script type="text/javascript" src="lib/core.js"></script>  
+	</head>
+	<body>
+		<div class="outer shadow round">
+			<div class="main container">
+<!-- generated via pages.py -->
+<div class="content active" id="admin">
+<h1>User Interface</h1>
+
+<ul>
+<li>The chaiproject UI is based on mainly JQuery and Twitter Bootstrap. </li>
+<li>All the other features are called "plugins" that are loaded on demand.</li>
+<li>All plugins are accessed via a hash (fragment). For example signin can be called by adding <code>#signin</code> to the addressbar</li>
+</ul>
+
+<p>Standard Interface features are:</p>
+
+<ol>
+<li><strong>Dynamic Pages:</strong> Pages can be created on the fly and loaded via ajax. Current page has <code>content</code> and <code>active</code> css class on it.</li>
+<li><strong>Toolbar:</strong> Standard Twitter Bootstrap Toolbar with buttons for login, admin and user settings</li>
+<li><strong>Admin Pages:</strong> List of pages, users, files. Adding and deleting</li>
+<li><strong>File Upload:</strong> Dialog (modal) for uploading a file</li>
+<li><strong>Page Editing:</strong> Click on Admin->Edit on any page</li>
+</ol>
+
+<h4>Types of Pages</h4>
+
+<p>Pages can be of 2 types:</p>
+
+<ol>
+<li>Virtual Pages (stored primarily in the db, also stored as files for search bots)</li>
+<li>Plugins (stored only as files)</li>
+</ol>
+
+<h4>Adding new Pages</h4>
+
+<ol>
+<li>To add a new Virtual Page, just go to Admin-> Pages and "Add". You can either edit the HTML or markdown. (Markdown to html, courtesy of showdown.js)</li>
+<li>To add a new plugin, just make a new html file preferably in the "plugins" folder of your root directory and register the plugin in your index_template.html by add the following js line.</li>
+</ol>
+
+<pre class="prettyprint">
+$.extend($._plugins, {"myplugin": {"path":"plugins"}});
+</pre>
+
+<p>This will ensure that this file will be loaded when #myplugin is called</p>
+
+<p>A new page is always created in a div whose id is the name of the page</p>
+
+<h4>Page Events</h4>
+
+<p>There are 2 main page events <code>_show</code> and <code>_render</code></p>
+
+<p>Everytime a page is shown, its _show event is called on the id element of that page. To bind an event handler, you can use JQuery bind as follows</p>
+
+<pre class="prettyprint">$('#mypage').bind('_show', function() {
+  // do something
+});</pre>
+<script>
+$('#admin').bind('_show', function() {
+  $.require('lib/js/google-code-prettify/prettify.css');
+  $.require('lib/js/google-code-prettify/prettify.js');
+  prettyPrint();
+})
+</script>
+</div>
+
+			</div>
+		</div>
+		<div class="footer">
+		</div>
+	</body>
+</html>
