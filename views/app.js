@@ -2,8 +2,6 @@ app.version = -1 // dev mode
 app.cms = true;
 
 $(document).ready(function() {
-	$.view.open('#index');
-	$.view.open('#editpage');
 })
 
 $(document).bind('_show', function() {
