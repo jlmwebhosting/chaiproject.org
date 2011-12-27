@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Todo</title>
+		<title>To Do</title>
 		<meta name="description" content="">
 		<meta name="author" content="">
 
@@ -17,29 +17,50 @@
 		<script type="text/javascript" src="lib/js/json2.js"> </script>  
 		<script type="text/javascript" src="lib/js/jquery/jquery.min.js"> </script>  
  		<script type="text/javascript" src="lib/js/history.min.js"></script>  
- 		<script type="text/javascript" src="lib/core.js"></script>  
+ 		<script type="text/javascript" src="lib/js/core.js"></script>
+ 		<script type="text/javascript" src="lib/views/toolbar.js"></script>
+ 		<script type="text/javascript" src="views/app.js"></script>  
 	</head>
 	<body>
+		<div class="topbar">
+			<div class="topbar-inner">
+				<div class="container">
+					<a class="brand" href="#index">Chai Project</a>
+					<ul class="nav">
+					</ul>
+					<ul class="nav secondary-nav">
+					</ul>
+				</div>
+			</div>
+		</div>
 		<div class="outer shadow round">
 			<div class="main container">
 <!-- generated via pages.py -->
 <div class="content active" id="todo">
-<h3>To do List</h3>
+<ol>
+<li>TOC</li>
+<li>Title</li>
+<li>Bottom Nav</li>
+</ol>
 
-<ul>
-<li>flag to identify new object in post (vs save) _new?</li>
-<li><p>clean up form, separate out save action (on primary button)</p></li>
-<li><p>users pages</p>
+<h2>TOC Page</h2>
 
-<ul><li>delete, set role</li></ul></li>
-<li>clear sessions</li>
-<li>scheduler</li>
-<li>simple page analytics</li>
-<li>comments</li>
-<li>sitemap.xml</li>
-<li>rss</li>
-<li><a href="chaiproject.html">try a link</a></li>
-</ul>
+<pre><code>{
+    "index": {"title":xx},
+    "subpage": [
+        "about": {"title", subpage: []}
+    ]
+}
+</code></pre>
+
+<h2>Render</h2>
+
+<p>Render in HTML (so that search can get it) - toc.html</p>
+
+<h2>Page Class</h2>
+
+<p>options to render title and navigation bar
+later comments and sharing</p>
 </div>
 
 			</div>
