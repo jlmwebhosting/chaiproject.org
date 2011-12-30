@@ -12,13 +12,18 @@
 		<![endif]-->
 
 		<link rel="stylesheet" href="chaiproject.org/all.css" type="text/css"/>
- 		<script type="text/javascript" src="chaiproject.org/all.js"></script>  
+ 		<script type="text/javascript" src="chaiproject.org/all.js"></script>
+		<script type="text/javascript">%(bootjs)s</script>
 	</head>
 	<body>
 		<header>
 		</header>
-		<div class="main container">
-			%(content)s
+		<div class="container">
+			<div class="row">
+				<div class="span16" id="main">
+					%(content)s
+				</div>
+			</div>
 		</div>
 		<footer class="footer">
 			<div class="container">

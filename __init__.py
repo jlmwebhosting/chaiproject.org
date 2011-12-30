@@ -3,9 +3,7 @@ concat = {
 		'lib/js/json2.js',
 		'lib/js/jquery/jquery.min.js',
 		'lib/js/history.min.js',
-		'lib/views/misc.js',
-		'lib/js/core.js',
-		'lib/views/toolbar.js',
+		'lib/js/chai/chai.js',
 		'chaiproject.org/views/app.js'
 	],
 	'all.css': [
